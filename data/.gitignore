@@ -1,0 +1,5 @@
+*.pyc
+.quandl
+test.md
+out*.csv
+futures2.py
