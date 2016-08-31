@@ -2,7 +2,7 @@ import os, futures, pandas as pd, datetime, simple
 from pymongo import MongoClient
 import numpy as np, sys, Quandl
 sys.path.append('../alg')
-import util, collections, futures2
+import util, collections
 import pandas as pd, numpy as np
 import matplotlib.pyplot as plt
 
@@ -118,56 +118,6 @@ def test_returns_sharpe_skew():
     s = util.skew(df.PRICE, forecast)
     assert s-(-0.57) < 0.01
 
-def create_carry_data(vol = False, reverse=False):
-    ctd = collections.OrderedDict()
-    for j,y in enumerate(range(1990,1998)):
-        # the main rollover contract on the 12th of each year
-        # btw years seen above
-        start_date = datetime.datetime(y-3, 12, 1)
-        end_date = datetime.datetime(y, 12, 31)
-        delta = end_date - start_date
-        dates = []
-        # get bizdays between start and end
-        for i in range(delta.days + 1):
-            day = start_date + datetime.timedelta(days=i)
-            if day.weekday() < 5: dates.append(day)
-        df = pd.DataFrame(index=dates)
-        df['s'] = np.array(range(len(df))) # superfluous value, like 1,2,3
-        if vol: df['s'] = df['s'] + 10*np.random.randn(len(df))
-        if reverse: df['s'] = 10000 - df['s']
-        ctd["%d12" % y] = df
-        
-        # the carry contract
-        start_date = datetime.datetime(y-3, 12, 1)
-        end_date = datetime.datetime(y, 11, 30)
-        delta = end_date - start_date
-        dates = []
-        for i in range(delta.days + 1):
-            day = start_date + datetime.timedelta(days=i)
-            if day.weekday() < 5: dates.append(day)
-        df = pd.DataFrame(index=dates)
-        df['s'] = 100. +  np.array(range(len(df))) # superfluous value
-        if reverse: df['s'] = 10000 - df['s']
-        ctd["%d11" % y] = df
-
-    rollcycle = "Z"; rolloffset = 30; expday = 31
-    expmon = "curr"; carryoffset = -1
-
-    df_assigned = futures2.which_contract(ctd, rollcycle, rolloffset, expday, expmon)
-    df_carry = futures2.create_carry(df_assigned[pd.isnull(df_assigned.effcont)==False],int(carryoffset),ctd) 
-    df_stitched = futures2.stitch_contracts(df_assigned, ctd, 's')
-    df_carry['sprice'] = df_stitched
-    return df_carry
-    
-def test_carry_stitch():
-    if not os.path.isfile("futures2.py"):
-        print 'futures2.py not there.. skipping'
-        return
-    df_carry = create_carry_data(True)    
-    df_carry = create_carry_data(False)
-    assert df_carry.sprice.diff().mean() > 0.9
-    assert (df_carry.carryprice - df_carry.effprice).mean() > 0.9
-
 if __name__ == "__main__":    
     simple.check_mongo()    
     test_simple()
@@ -176,4 +126,3 @@ if __name__ == "__main__":
     test_missing_contract()
     test_one_load()
     test_returns_sharpe_skew()
-    test_carry_stitch()
