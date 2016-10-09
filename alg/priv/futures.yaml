@@ -1,0 +1,31 @@
+base_currency: "USD"
+percentage_vol_target: 20.0
+notional_trading_capital: 250000
+vol_window: 25
+exchange: {'USD': {'EUR': 1.1, 'USD': 1.0} }
+instrument_weights:
+     ED_CME: 11.67
+     FV_CME: 11.67
+     FESX_EUREX: 20.0
+     FVS_EUREX: 10.0
+     MP_CME: 23.33
+     C_CME: 23.33
+instrument_div_multiplier: 1.89
+price_divider:
+     ED_CME: 1.0
+     FV_CME: 1.0
+     FESX_EUREX: 1.0
+     FVS_EUREX: 1.0
+     MP_CME: 1000000.0
+     C_CME: 1.0
+forecast_scalars:
+     carry: 20.0
+     ewmac16_64: 3.75
+     ewmac32_128: 2.65
+     ewmac64_256: 1.87
+forecast_weights:
+     carry: 0.50
+     ewmac16_64: 0.21
+     ewmac32_128: 0.08
+     ewmac64_256: 0.21
+     

@@ -1,0 +1,7 @@
+*.pyc
+*.xlsx*
+.#*
+*.png
+tmp
+mp*.csv
+out*.csv
