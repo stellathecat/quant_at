@@ -155,6 +155,10 @@ use findb
 db.dropDatabase()
 ```
 
+To see articles (in Turkish) that utilize this code
+
+http://sayilarvekuramlar.blogspot.de/2015/12/zaman-serileri-ve-finans.html
+
 [1]: https://github.com/burakbayramli/kod/tree/master/dand
 
 [2]: https://www.stlouisfed.org
