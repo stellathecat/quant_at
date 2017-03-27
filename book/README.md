@@ -26,11 +26,11 @@ arch
 There are three big data files that are hard to share through Github,
 they can be downloaded through the links below:
 
-[AUDCAD](https://dl.dropboxusercontent.com/u/1570604/data/inputData_AUDCAD_20120426.mat)
+[AUDCAD](https://www.dropbox.com/s/510lvv47i49kgqw/inputData_AUDCAD_20120426.mat?dl=1)
 
-[AUDUSD](https://dl.dropboxusercontent.com/u/1570604/data/inputData_AUDUSD_20120426.mat)
+[AUDUSD](https://www.dropbox.com/s/7t29q43bwy6mwfs/inputData_AUDUSD_20120426.mat?dl=1)
 
-[USDCAD](https://dl.dropboxusercontent.com/u/1570604/data/inputData_USDCAD_20120426.mat)
+[USDCAD](https://www.dropbox.com/s/1403h358vw0m5bz/inputData_USDCAD_20120426.mat?dl=0)
 
 The code will assume these files are under `[HOME]/Dropbox/Public/data` folder.
 
